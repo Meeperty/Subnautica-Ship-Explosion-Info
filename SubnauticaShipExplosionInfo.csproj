@@ -66,7 +66,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF exist "C:\Users\Us\Apps\Livesplit_1.8.25\Components" ( move $(TargetPath) "C:\Users\Us\Apps\Livesplit_1.8.25\Components" )
-IF exist "C:\Users\Us\Apps\Livesplit_1.8.25\Components" ( move $(SolutionDir)$(OutDir)$(TargetName).pdb "C:\Users\Us\Apps\Livesplit_1.8.25\Components" )</PostBuildEvent>
+    <PostBuildEvent>IF exist "C:\Users\Us\Apps\Livesplit_1.8.25\Components" ( copy $(TargetPath) "C:\Users\Us\Apps\Livesplit_1.8.25\Components" )
+IF exist "C:\Users\Us\Apps\Livesplit_1.8.25\Components" ( copy $(SolutionDir)$(OutDir)$(TargetName).pdb "C:\Users\Us\Apps\Livesplit_1.8.25\Components" )</PostBuildEvent>
   </PropertyGroup>
 </Project>
