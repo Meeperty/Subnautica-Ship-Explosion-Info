@@ -102,14 +102,14 @@ namespace LiveSplit.UI.Components
 			switch (gameProcess.MainModule.ModuleMemorySize)
 			{
 				case 23801856: // September 2018
-					timeToStartCountdownPtr = new DeepPointer(0);
-					timeToStartWarningPtr = new DeepPointer(0);
+					timeToStartCountdownPtr = new DeepPointer("Subnautica.exe", 0x1394a20, 0x80, 0x780, 0x1b8, 0x70, 0x28, 0x8, 0x118, 0x7c);
+					timeToStartWarningPtr = new DeepPointer("Subnautica.exe", 0x1394a20, 0x80, 0x780, 0x1b8, 0x70, 0x28, 0x8, 0x118, 0x88);
 					WriteDebug("September 2018");
 					break;
 
 				case 671744: // December 2021
-					timeToStartCountdownPtr = new DeepPointer(0);
-					timeToStartWarningPtr = new DeepPointer(0);
+					timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x16ddd18, 0x8, 0x18, 0x30, 0x8, 0xe0, 0x60, 0x7c);
+					timeToStartWarningPtr = new DeepPointer("UnityPlayer.dll", 0x16ddd18, 0x8, 0x18, 0x30, 0x8, 0xe0, 0x60, 0x88);
 					WriteDebug("December 2021");
 					break;
 
