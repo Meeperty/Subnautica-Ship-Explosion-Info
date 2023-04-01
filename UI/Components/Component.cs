@@ -15,7 +15,6 @@ namespace LiveSplit.UI.Components
 {
 	public class Component : IComponent
 	{
-
 		protected InfoTextComponent InternalComponent { get; set; }
 
 		private Timer infoUpdateTimer = new Timer(2500);
@@ -90,15 +89,37 @@ namespace LiveSplit.UI.Components
 		}
 
 		private Process gameProcess;
-		private DeepPointer timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x1847f40, 0xe0, 0x510, 0x40, 0x4e0, 0x1940, 0xd0, 0x8, 0x70, 0x0, 0x84);
-		private DeepPointer timeToStartWarningPtr = new DeepPointer("UnityPlayer.dll", 0x1847f40, 0xe0, 0x510, 0x40, 0x4e0, 0x1940, 0xd0, 0x8, 0x70, 0x0, 0x90);
+		
 
 		private void UpdateInfo()
 		{
 			gameProcess = Process.GetProcessesByName("Subnautica").FirstOrDefault(p => !p.HasExited);
 			//Debug.WriteLine($"found Subnautica at pid {gameProcess.Id}");
 			if (gameProcess == null) { return; }
-			
+			DeepPointer timeToStartCountdownPtr;
+			DeepPointer timeToStartWarningPtr;
+
+			switch (gameProcess.MainModule.ModuleMemorySize)
+			{
+				case 23801856: // September 2018
+					timeToStartCountdownPtr = new DeepPointer(0);
+					timeToStartWarningPtr = new DeepPointer(0);
+					WriteDebug("September 2018");
+					break;
+
+				case 671744: // December 2021
+					timeToStartCountdownPtr = new DeepPointer(0);
+					timeToStartWarningPtr = new DeepPointer(0);
+					WriteDebug("December 2021");
+					break;
+
+				default: // March 2023
+					timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x1847f40, 0xe0, 0x510, 0x40, 0x4e0, 0x1940, 0xd0, 0x8, 0x70, 0x0, 0x84);
+					timeToStartWarningPtr = new DeepPointer("UnityPlayer.dll", 0x1847f40, 0xe0, 0x510, 0x40, 0x4e0, 0x1940, 0xd0, 0x8, 0x70, 0x0, 0x90);
+					WriteDebug("March 2023");
+					break;
+			}
+
 			float countdownTime = timeToStartCountdownPtr.Deref<float>(gameProcess);
 			float warningTime = timeToStartWarningPtr.Deref<float>(gameProcess);
 			float explosionTimeFloat = countdownTime - warningTime;
@@ -106,6 +127,11 @@ namespace LiveSplit.UI.Components
 			TimeSpan explosionTime = TimeSpan.FromSeconds(explosionTimeFloat);
 			//Debug.WriteLine($"{InternalComponent.InformationValue}");
 			InternalComponent.InformationValue = explosionTime.ToString(@"h\:mm\:ss");
+		}
+
+		private void WriteDebug(string s)
+		{
+			Debug.WriteLine($"[SubnauticaShipExplosionInfo] {s}");
 		}
 	}
 }
