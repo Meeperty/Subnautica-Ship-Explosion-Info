@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updates>
+    <update version="1.0.0">
+        <files>
+            <file path="SubnauticaShipExplosionInfo.dll" status="changed"/>
+        </files>
+        <changelog>
+            <change>Automatic updating</change>
+            <change>New 2023 pointer by Ignis</change>
+            <change>New 2018 pointer by Ruby</change>
+        </changelog>
+    </update>
+</updates>
