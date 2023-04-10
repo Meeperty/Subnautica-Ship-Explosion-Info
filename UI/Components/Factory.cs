@@ -16,7 +16,7 @@ namespace LiveSplit.UI.Components
 		public string UpdateName => ComponentName;
 		public string XMLURL => UpdateURL + "updates.xml";
 		public string UpdateURL => "https://raw.githubusercontent.com/Meeperty/Subnautica-Ship-Explosion-Info/master/";
-		public Version Version => Version.Parse("1.0.0");
+		public Version Version => Version.Parse("1.0.1");
 
 		public IComponent Create(LiveSplitState state)
 		{
