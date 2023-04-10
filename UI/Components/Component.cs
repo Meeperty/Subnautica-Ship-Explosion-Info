@@ -95,27 +95,32 @@ namespace LiveSplit.UI.Components
 		{
 			gameProcess = Process.GetProcessesByName("Subnautica").FirstOrDefault(p => !p.HasExited);
 			//Debug.WriteLine($"found Subnautica at pid {gameProcess.Id}");
-			if (gameProcess == null) { return; }
+			if (gameProcess == null) 
+			{
+				InternalComponent.InformationValue = TimeSpan.FromSeconds(0).ToString(@"h\:mm\:ss");
+				return;
+			}
 			DeepPointer timeToStartCountdownPtr;
 			DeepPointer timeToStartWarningPtr;
 
 			switch (gameProcess.MainModule.ModuleMemorySize)
 			{
 				case 23801856: // September 2018
-					timeToStartCountdownPtr = new DeepPointer("Subnautica.exe", 0x1394a20, 0x80, 0x780, 0x1b8, 0x70, 0x28, 0x8, 0x118, 0x7c);
-					timeToStartWarningPtr = new DeepPointer("Subnautica.exe", 0x1394a20, 0x80, 0x780, 0x1b8, 0x70, 0x28, 0x8, 0x118, 0x88);
+					timeToStartCountdownPtr = new DeepPointer("mono.dll", 0x266188, 0x90, 0x648, 0x0, 0x40, 0x118, 0x1a0, 0x18, 0x7c);
+					timeToStartWarningPtr = new DeepPointer(  "mono.dll", 0x266188, 0x90, 0x648, 0x0, 0x40, 0x118, 0x1a0, 0x18, 0x88);
 					WriteDebug("September 2018");
 					break;
 
 				case 671744: // December 2021
 					timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x16ddd18, 0x8, 0x18, 0x30, 0x8, 0xe0, 0x60, 0x7c);
-					timeToStartWarningPtr = new DeepPointer("UnityPlayer.dll", 0x16ddd18, 0x8, 0x18, 0x30, 0x8, 0xe0, 0x60, 0x88);
+					timeToStartWarningPtr = new DeepPointer(  "UnityPlayer.dll", 0x16ddd18, 0x8, 0x18, 0x30, 0x8, 0xe0, 0x60, 0x88);
 					WriteDebug("December 2021");
 					break;
 
 				default: // March 2023
-					timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x183bf48, 0x8, 0x58, 0x30, 0x68, 0x0, 0x10, 0x30, 0x18, 0x28, 0x84);
-					timeToStartWarningPtr = new DeepPointer("UnityPlayer.dll", 0x183bf48, 0x8, 0x58, 0x30, 0x68, 0x0, 0x10, 0x30, 0x18, 0x28, 0x90);
+																	//OFFSETS = [0x017FBC48, 0x280, 0x220, 0x4e0, 0x1940, 0xa8, 0xd0, 0x48, 0x60, 0x10, 0x84 / 0x90]
+					timeToStartCountdownPtr = new DeepPointer("UnityPlayer.dll", 0x017FBC48, 0x280, 0x220, 0x4e0, 0x1940, 0xa8, 0xd0, 0x48, 0x60, 0x10, 0x84);
+					timeToStartWarningPtr = new DeepPointer(  "UnityPlayer.dll", 0x017FBC48, 0x280, 0x220, 0x4e0, 0x1940, 0xa8, 0xd0, 0x48, 0x60, 0x10, 0x90);
 					WriteDebug("March 2023");
 					break;
 			}
