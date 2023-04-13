@@ -3,7 +3,7 @@
 Build instructions:  
  * Clone Livesplit/Livesplit into the directory above this project. It should look something like this:   
 
-parent folder   
+    parent folder   
 ╠>LiveSplit  
 ╠╦>LiveSplit  
 ║╚═>LiveSplit.sln  
