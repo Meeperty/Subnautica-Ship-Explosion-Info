@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Update procedure:
+	    add an <update> to this file, w/ accurate changelog
+		update Factory.Version in Factory.cs
+		update AssemblyVersion and AssemblyFileVersion in AssemblyInfo.cs
+-->
 <updates>
     <update version="1.0.1">
         <files>
